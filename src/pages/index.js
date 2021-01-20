@@ -31,7 +31,23 @@ const buttonStyles = {
   marginBottom: 30
 }
 
-export default function Home(){
+export default function Home() {
+
+  function adduser(e) {
+    console.log("Inside adduser")
+    e.preventDefault()
+
+    //debugger
+
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ "name":e.target.username.value, "email":e.target.email.value })
+    };
+    fetch('http://localhost:9100/user', requestOptions)
+        .then(response => response.json());
+  }
+
   return (   
   <Container maxWidth="sm">
     <Box my={6}><Typography variant="h5" component="h3" gutterBottom>
@@ -43,15 +59,15 @@ export default function Home(){
       </Typography></Box>
     <Box my={6}>
       
-      <form className="root" noValidate autoComplete="off">
+      <form onSubmit={adduser} className="root" noValidate autoComplete="off">
       <span style={textFieldStyles}>
-        <TextField id="content1" label="Name" variant="filled" style = {{width: 330}} />
+        <TextField id="content1" name="username" label="username" variant="filled" style = {{width: 330}} />
      </span>
      <span style={textFieldStyles}>
-         <TextField id="content2" label="Email" variant="filled" style = {{width: 330}}/>
+         <TextField id="content2" label="Email" name="email" variant="filled" style = {{width: 330}}/>
       </span>
         <Typography variant="h2" component="h1" gutterBottom>
-        <span style={buttonStyles}> <Button variant="contained" color="primary">
+        <span style={buttonStyles}> <Button type="submit" variant="contained" color="primary">
             Submit
           </Button>
           </span>
