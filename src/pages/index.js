@@ -45,7 +45,8 @@ export default function Home() {
         body: JSON.stringify({ "name":e.target.username.value, "email":e.target.email.value })
     };
     fetch('http://localhost:9100/user', requestOptions)
-        .then(response => response.json());
+        .then(response => response.json())
+        .then(window.open("/thanks","_parent"))
   }
 
   return (   

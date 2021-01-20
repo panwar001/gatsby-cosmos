@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -27,15 +27,14 @@ const buttonStyles = {
   }
 
 export default function About() {
+    const [participant, setParticipant] = useState();
     function allUsers() {
         console.log("Inside allUsers")
-        const requestOptions = {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' },
-            //body: JSON.stringify({ "name":e.target.username.value, "email":e.target.email.value })
-        };
         fetch('http://localhost:9100/users')
-            .then(response => response.json());
+            .then(response => response.json())
+            .then(function(response){
+                setParticipant(response);
+            })
     }
   return (
     <Container maxWidth="sm">
@@ -53,6 +52,7 @@ export default function About() {
             All Participants List
           </Button>
           </span>
+          <pre>{JSON.stringify(participant, null, 2)}</pre>
         <Copyright />
       </Box>
     </Container>
